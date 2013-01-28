@@ -1,0 +1,49 @@
+<!-- 
+An application specific layout is used for all 
+the controllers and can be found in 
+app/views/layouts/application.html.erb. 
+-->
+
+<h1>Listing posts</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Title</th>
+    <th>Content</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<!--  The HTML format looks for a view in 
+  app/views/posts/ with a name that corresponds 
+  to the action name. Rails makes all of the 
+  instance variables from the action available 
+  to the view.-->
+<% @posts.each do |post| %>
+  <tr>
+    <td><%= post.name %></td>
+    <td><%= post.title %></td>
+    <td><%= post.content %></td>
+    <td><%= link_to 'Show', post %></td>
+    <!--  link_to builds a hyperlink to a particular destination 
+    edit_post_path and new_post_path are helpers that Rails provides 
+    as part of RESTful routing. You’ll see a variety of these helpers 
+    for the different actions that the controller includes.
+    http://guides.rubyonrails.org/layouts_and_rendering.html -->
+    <td><%= link_to 'Edit', edit_post_path(post) %></td>
+    <!-- 
+    Finally, clicking one of the destroy links sends the associated id to the destroy action:
+    -->
+    <td><%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Post', new_post_path %>
+
+
+

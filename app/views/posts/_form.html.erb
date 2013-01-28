@@ -1,0 +1,47 @@
+<!--
+This partial receives all the instance variables 
+defined in the calling view file. In this case, 
+the controller assigned the new Post object to 
+@post, which will thus be available in both the 
+view and the partial as @post.
+-->
+<% @post.tags.build %>
+<!-- 
+We also add a @post.tags.build at the top of 
+this form. This is to make sure there is a new 
+tag ready to have its name filled in by the user. 
+If you do not build the new tag, then the form 
+will not appear as there is no new Tag object 
+ready to create.
+-->
+<%= form_for(@post) do |post_form| %>
+  <% if @post.errors.any? %>
+  <div id="errorExplanation">
+    <h2><%= pluralize(@post.errors.count, "error") %> prohibited this post from being saved:</h2>
+    <ul>
+    <% @post.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+  <% end %>
+ 
+  <div class="field">
+    <%= post_form.label :name %><br />
+    <%= post_form.text_field :name %>
+  </div>
+  <div class="field">
+    <%= post_form.label :title %><br />
+    <%= post_form.text_field :title %>
+  </div>
+  <div class="field">
+    <%= post_form.label :content %><br />
+    <%= post_form.text_area :content %>
+  </div>
+  <h2>Tags</h2>
+  <%= render :partial => 'tags/form',
+             :locals => {:form => post_form} %>
+  <div class="actions">
+    <%= post_form.submit %>
+  </div>
+<% end %>

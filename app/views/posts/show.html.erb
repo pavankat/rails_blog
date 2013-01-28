@@ -1,0 +1,62 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @post.name %>
+</p>
+
+<p>
+  <b>Title:</b>
+  <%= @post.title %>
+</p>
+
+<p>
+  <b>Content:</b>
+  <%= @post.content %>
+</p>
+
+<p>
+  <b>Tags:</b>
+  <!--
+  wrote the join_tags method in 
+  app/helpers/posts_helper.rb 
+  -->
+  <%= join_tags(@post) %>
+</p>
+
+<h2>Comments</h2>
+<%= render @post.comments %>
+<!--
+
+doing this is like because the render method 
+iterates over the @post.comments collection.
+
+as it iterates over the @post.comments collection
+the render method assigns each comment to a local variable
+named the same as the partial, which in this case is comment
+
+this is available in the partial for us to show.
+
+
+<% @post.comments.each do |comment| %>
+<p>
+  <b>Commenter:</b>
+  <%= comment.commenter %>
+</p>
+ 
+<p>
+  <b>Comment:</b>
+  <%= comment.body %>
+</p>
+<% end %>
+
+-->
+
+<h2>Add a comment:</h2>
+
+<%= render "comments/form" %>
+
+<br />
+
+<%= link_to 'Edit', edit_post_path(@post) %> |
+<%= link_to 'Back', posts_path %>
